@@ -53,13 +53,14 @@ Calls are thread-safe: they are marshalled onto the client thread internally.
 An immutable record with builder-style copies:
 
 ```java
-record PopupOptions(int color, float scale, long lifetimeMs, float riseSpeed)
+record PopupOptions(int color, float scale, long lifetimeMs, float riseSpeed, boolean appendExclamationMark)
 ```
 
 - `color` — 0xRRGGBB; **the alpha channel is ignored** (opacity is driven by the fade-out).
 - `scale` — text scale multiplier (default `1.0`).
 - `lifetimeMs` — total time on screen including the fade, clamped to at least `1`.
 - `riseSpeed` — GUI pixels per second of vertical travel.
+- `appendExclamationMark` — when `true`, a `!` is appended to the formatted damage value.
 
 Factory and helpers:
 
@@ -69,6 +70,7 @@ PopupOptions.defaults()          // reads the current config values
 .withScale(float scale)
 .withLifetime(long lifetimeMs)
 .withRiseSpeed(float riseSpeed)
+.withAppendExclamationMark(boolean appendExclamationMark)
 ```
 
 Example:
@@ -78,7 +80,8 @@ DamageApi.get().popup(42.0, x, y, z,
     PopupOptions.defaults()
         .withColor(0xFFAA00)
         .withScale(1.5F)
-        .withLifetime(1000L));
+        .withLifetime(1000L)
+        .withAppendExclamationMark(true));
 ```
 
 ## Configuration
