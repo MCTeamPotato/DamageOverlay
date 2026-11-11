@@ -1,0 +1,17 @@
+{
+  "damageoverlay.config.section": "伤害跳字",
+  "damageoverlay.config.default_color": "默认颜色",
+  "damageoverlay.config.default_color.tooltip": "伤害文字的颜色，格式为 0xRRGGBB，在调用方未指定颜色时使用。\nAlpha 通道会被忽略，透明度由淡出动画控制。",
+  "damageoverlay.config.drop_shadow": "文字阴影",
+  "damageoverlay.config.drop_shadow.tooltip": "伤害文字是否绘制投影阴影。\n关闭后文字在明亮背景下更难辨认，但渲染开销略低。",
+  "damageoverlay.config.lifetime": "存活时长",
+  "damageoverlay.config.lifetime.tooltip": "跳字在屏幕上停留的时间，单位为毫秒，包含淡出阶段。",
+  "damageoverlay.config.rise_pixels": "上浮距离",
+  "damageoverlay.config.rise_pixels.tooltip": "跳字在整个生命周期内从原点起竖直移动的总距离，单位为 GUI 像素。",
+  "damageoverlay.config.spread": "生成散布",
+  "damageoverlay.config.spread.tooltip": "生成时施加的水平随机偏移，单位为方块，避免同一方块上的多次伤害完全重叠。\n设为 0 则始终从原点生成。",
+  "damageoverlay.config.min_slope": "最小斜率",
+  "damageoverlay.config.min_slope.tooltip": "跳字轨迹 y = kx 中随机斜率 k 的下界。\n两个边界都必须为正，运动方向才会落在第一象限。",
+  "damageoverlay.config.max_slope": "最大斜率",
+  "damageoverlay.config.max_slope.tooltip": "随机斜率 k 的上界。\n斜率越小横向漂移越远，越大则越接近竖直上浮。\n必须严格大于最小斜率。"
+}

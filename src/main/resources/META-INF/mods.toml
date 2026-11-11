@@ -1,0 +1,16 @@
+modLoader = "javafml"
+loaderVersion = "[36,)"
+#issueTrackerURL = ""
+license = "LGPL-v3"
+
+[[mods]]
+modId = "damageoverlay"
+version = "${version}"
+displayName = "DamageOverlay"
+#logoFile = "logo.png"
+authors = "Kasualix"
+#credits = ""
+description = '''
+
+'''
+#logoFile = ""

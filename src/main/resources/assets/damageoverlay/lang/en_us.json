@@ -1,0 +1,17 @@
+{
+  "damageoverlay.config.section": "Damage Overlay",
+  "damageoverlay.config.default_color": "Default Colour",
+  "damageoverlay.config.default_color.tooltip": "Colour of the damage text as 0xRRGGBB, used when the caller does not pass its own colour.\nThe alpha channel is ignored: opacity is driven by the fade-out animation.",
+  "damageoverlay.config.drop_shadow": "Drop Shadow",
+  "damageoverlay.config.drop_shadow.tooltip": "Whether the damage text is drawn with a drop shadow.\nTurning this off makes the text harder to read against bright backgrounds, but slightly cheaper to render.",
+  "damageoverlay.config.lifetime": "Lifetime",
+  "damageoverlay.config.lifetime.tooltip": "How long a popup stays on screen, in milliseconds, fade-out included.",
+  "damageoverlay.config.rise_pixels": "Rise Distance",
+  "damageoverlay.config.rise_pixels.tooltip": "Total vertical distance, in GUI pixels, a popup travels from its origin over its whole lifetime.",
+  "damageoverlay.config.spread": "Spawn Spread",
+  "damageoverlay.config.spread.tooltip": "Random horizontal offset applied at spawn, in blocks, so several hits on the same block do not overlap exactly.\nSet to 0 to always spawn at the exact origin.",
+  "damageoverlay.config.min_slope": "Minimum Slope",
+  "damageoverlay.config.min_slope.tooltip": "Lower bound of the random slope k used by the popup trajectory y = kx.\nBoth bounds must stay positive to keep the motion in the first quadrant.",
+  "damageoverlay.config.max_slope": "Maximum Slope",
+  "damageoverlay.config.max_slope.tooltip": "Upper bound of the random slope k.\nSmaller slopes drift further sideways, larger slopes rise more vertically.\nMust be strictly greater than the minimum slope."
+}
