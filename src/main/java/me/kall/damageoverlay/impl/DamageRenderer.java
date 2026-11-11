@@ -62,6 +62,9 @@ public final class DamageRenderer implements DamageApi {
             double maxSlope = DamageOverlay.MAX_SLOPE.getAsDouble();
 
             String text = String.format(Locale.ROOT, "%.1f", damageAmount);
+            if (options.appendExclamationMark()) {
+                text += "!";
+            }
             double popupX = x + (random.nextDouble() - 0.5D) * spread;
             double popupZ = z + (random.nextDouble() - 0.5D) * spread;
             float slope = (float) random.nextDouble(minSlope, maxSlope);
