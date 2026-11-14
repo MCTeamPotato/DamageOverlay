@@ -53,11 +53,12 @@ Calls are thread-safe: they are marshalled onto the client thread internally.
 An immutable record with builder-style copies:
 
 ```java
-record PopupOptions(int color, float scale, long lifetimeMs, float riseSpeed, boolean appendExclamationMark)
+record PopupOptions(int color, float scale, float endScaleFactor, long lifetimeMs, float riseSpeed, boolean appendExclamationMark)
 ```
 
 - `color` — 0xRRGGBB; **the alpha channel is ignored** (opacity is driven by the fade-out).
-- `scale` — text scale multiplier (default `1.0`).
+- `scale` — text scale multiplier at spawn (default `1.0`).
+- `endScaleFactor` — multiplier applied to `scale` at the end of the lifetime, interpolated linearly from `1.0` as the popup ages. `1.0` keeps the size constant, `0.5` shrinks the text to half its spawn size, `0.0` shrinks it away. Clamped to at least `0`.
 - `lifetimeMs` — total time on screen including the fade, clamped to at least `1`.
 - `riseSpeed` — GUI pixels per second of vertical travel.
 - `appendExclamationMark` — when `true`, a `!` is appended to the formatted damage value.
@@ -68,6 +69,7 @@ Factory and helpers:
 PopupOptions.defaults()          // reads the current config values
 .withColor(int color)
 .withScale(float scale)
+.withEndScaleFactor(float endScaleFactor)
 .withLifetime(long lifetimeMs)
 .withRiseSpeed(float riseSpeed)
 .withAppendExclamationMark(boolean appendExclamationMark)
@@ -110,6 +112,7 @@ Each popup stores its world position, a random slope `k` in `[MinSlope, MaxSlope
 2. Computes `age = (now - createdAt) / lifetimeMs`.
 3. Moves the text along a straight trajectory where horizontal travel = vertical travel / `k` — so small slopes drift sideways while large slopes rise almost vertically.
 4. Fades the alpha from `255` to `0` over the lifetime.
-5. Skips anything that lands outside the GUI bounds.
+5. Scales the text from `scale` down (or up) to `scale * endScaleFactor` over the lifetime.
+6. Skips anything that lands outside the GUI bounds.
 
 Popups are added and expired on the client thread, so the list is only ever mutated where it's safe to do so.

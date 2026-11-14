@@ -70,10 +70,11 @@ public final class DamageRenderer implements DamageApi {
             float slope = (float) random.nextDouble(minSlope, maxSlope);
             int color = options.color() & 0xFFFFFF;
             float scale = options.scale();
+            float endScaleFactor = options.endScaleFactor();
             long life = options.lifetimeMs();
             float riseSpeed = options.riseSpeed();
 
-            this.popupList.add(new PopupInstance(text, popupX, y, popupZ, slope, color, scale, life, riseSpeed, Util.getMillis()));
+            this.popupList.add(new PopupInstance(text, popupX, y, popupZ, slope, color, scale, endScaleFactor, life, riseSpeed, Util.getMillis()));
         });
     }
 
@@ -105,7 +106,7 @@ public final class DamageRenderer implements DamageApi {
             if (!this.world2Screen(popup.x() - camera.x, popup.y() - camera.y, popup.z() - camera.z)) continue;
             float age = Math.min(1.0F, (float) (now - popup.createdAt()) / (float) popup.lifetimeMs());
             float travel = popup.riseSpeed() * (float) popup.lifetimeMs() / 1000.0F;
-            this.inScreen.add(new ScreenPopup(popup.text(), this.screenX, this.screenY, age, popup.slope(), popup.color(), popup.scale(), travel));
+            this.inScreen.add(new ScreenPopup(popup.text(), this.screenX, this.screenY, age, popup.slope(), popup.color(), popup.scale(), popup.endScaleFactor(), travel));
         }
     }
 
@@ -151,13 +152,14 @@ public final class DamageRenderer implements DamageApi {
 
             pose.pushPose();
             pose.translate(x, y, 0.0F);
-            pose.scale(popup.scale(), popup.scale(), 1.0F);
+            float scale = popup.scale() * (1.0F + (popup.endScaleFactor() - 1.0F) * popup.age());
+            pose.scale(scale, scale, 1.0F);
             graphics.drawString(font, popup.text(), -font.width(popup.text()) / 2.0F, 0.0F, (alpha << 24) | popup.color(), dropShadow);
             pose.popPose();
         }
     }
 
-    private record PopupInstance(String text, double x, double y, double z, float slope, int color, float scale, long lifetimeMs, float riseSpeed, long createdAt) {}
+    private record PopupInstance(String text, double x, double y, double z, float slope, int color, float scale, float endScaleFactor, long lifetimeMs, float riseSpeed, long createdAt) {}
 
-    private record ScreenPopup(String text, float x, float y, float age, float slope, int color, float scale, float travel) {}
+    private record ScreenPopup(String text, float x, float y, float age, float slope, int color, float scale, float endScaleFactor, float travel) {}
 }
