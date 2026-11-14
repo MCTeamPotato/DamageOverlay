@@ -107,7 +107,7 @@ tasks.register("publishCurseForge", TaskPublishCurseForge) {
         mainFile.releaseType = "release"
         mainFile.changelog = changelog
         mainFile.changelogType = "markdown"
-        mainFile.addEnvironment("Server", "Client")
+        mainFile.addEnvironment("Client")
         mainFile.addModLoader(isNeo ? "NeoForge" : "Forge")
         mainFile.addJavaVersion("Java ${versionKeys.java}")
         mainFile.addGameVersion(minecraft_version)
